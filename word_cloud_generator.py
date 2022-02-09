@@ -10,14 +10,18 @@ from wordcloud import WordCloud
 class WordCloudCreator:
     workdir: str
     stopwords: set[str]
+    width: int
+    height: int
 
-    def __init__(self):
+    def __init__(self, image_width: int, image_height: int):
         stopwords = set(get_stop_words('russian'))
         stopwords.add('знаю')
         stopwords.add('поэтому')
         stopwords.add('вообще')
         stopwords.add('могу')
         self.stopwords = stopwords
+        self.width = image_width
+        self.height = image_height
 
     def run(self, workdir, filename):
         self.workdir = workdir
@@ -51,19 +55,18 @@ class WordCloudCreator:
                     result[word] += 1.0
         return result
 
-    @staticmethod
-    def gen_cloud(words_dict: dict):
-        return WordCloud(width=1170,
-                         prefer_horizontal=0.9,
-                         height=2532,
+    def gen_cloud(self, words_dict: dict):
+        return WordCloud(prefer_horizontal=0.9,
+                         width=self.width,
+                         height=self.height,
                          background_color='black',
                          margin=20,
                          colormap='Pastel1',
                          collocations=False).generate_from_frequencies(words_dict)
 
     def make_image(self, wordcloud, username):
-        # Устанавливаем размер картинки
-        plt.figure(figsize=(1170, 2532), dpi=1)
+        # Устанавливаем размер картинки в пикселях
+        plt.figure(figsize=(self.width, self.height), dpi=1)
         # Использовать все пространство
         plt.gca().set_position([0, 0, 1, 1])
 
