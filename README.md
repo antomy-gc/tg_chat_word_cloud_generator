@@ -1,4 +1,4 @@
-# Word cloud generator
+# Telegram chat history word cloud generator
 Генерит облако слов из json-дампа истории сообщений в telegram
 
 ### Инструкция:
