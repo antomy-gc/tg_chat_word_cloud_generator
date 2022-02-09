@@ -1,0 +1,4 @@
+stop-words
+matplotlib~=3.5.1
+wordcloud~=1.8.1
+promptlib~=1.0.0
